@@ -1,6 +1,6 @@
 ---
 name: sheets-diagnose
-description: Diagnose spreadsheet data quality and formula behavior through `sheets_analyze` and `sheets_formula_debug`. Use for profiling, lookup failures, import issues, and formula troubleshooting. Do not use for ordinary reads or direct mutations.
+description: "Diagnose spreadsheet data quality and formula behavior through `sheets_analyze` and `sheets_formula_debug`. Use for profiling, lookup failures, import issues, and formula troubleshooting. Do not use for ordinary reads or direct mutations."
 ---
 
 # Sheets Diagnose

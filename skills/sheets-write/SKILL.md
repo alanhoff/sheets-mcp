@@ -1,6 +1,6 @@
 ---
 name: sheets-write
-description: Change Google Sheets data, formulas, structure, dashboards, charts, and styling through `sheets_edit` and `sheets_style`. Use for live mutations and dry-run planning. Do not use for read-only inspection or diagnostics.
+description: "Change Google Sheets data, formulas, structure, dashboards, charts, and styling through `sheets_edit` and `sheets_style`. Use for live mutations and dry-run planning. Do not use for read-only inspection or diagnostics."
 ---
 
 # Sheets Write

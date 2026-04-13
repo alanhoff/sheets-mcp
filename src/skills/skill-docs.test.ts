@@ -30,7 +30,7 @@ describe("skill docs", () => {
       const expectedName = basename(skillDir);
 
       assert.match(frontmatter, new RegExp(`^name:\\s*${expectedName}$`, "m"));
-      assert.match(frontmatter, /^description:\s*(?:"[^"]+"|.+)$/m);
+      assert.match(frontmatter, /^description:\s*".+"$/m);
       assert.match(skillDoc, /^# .+$/m);
     }
   });

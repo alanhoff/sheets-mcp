@@ -1,6 +1,6 @@
 ---
 name: sheets-read
-description: Inspect Google Sheets without changing them: spreadsheet metadata, values, formulas, notes, merges, formatting, and targeted grid structures through `sheets_get`, `sheets_read_values`, and `sheets_read_grid`. Use for reconnaissance, exports, audits, and formula inventories. Do not use for computed diagnostics, formula evaluation loops, or mutations.
+description: "Inspect Google Sheets without changing them: spreadsheet metadata, values, formulas, notes, merges, formatting, and targeted grid structures through `sheets_get`, `sheets_read_values`, and `sheets_read_grid`. Use for reconnaissance, exports, audits, and formula inventories. Do not use for computed diagnostics, formula evaluation loops, or mutations."
 ---
 
 # Sheets Read

@@ -1,6 +1,6 @@
 ---
 name: sheets-references
-description: Shared doctrine for the Sheets skills. Use when you need deeper guidance on tool boundaries, request shaping, retries, mutation safety, performance, formula playbooks, visualization, or skill authoring. Do not start here for ordinary spreadsheet tasks; start with sheets-read, sheets-write, or sheets-diagnose.
+description: "Shared doctrine for the Sheets skills. Use when you need deeper guidance on tool boundaries, request shaping, retries, mutation safety, performance, formula playbooks, visualization, or skill authoring. Do not start here for ordinary spreadsheet tasks; start with sheets-read, sheets-write, or sheets-diagnose."
 ---
 
 # Sheets References
