@@ -209,6 +209,9 @@ tags
 # Persistent undo
 [._]*.un~
 
+# Local git worktrees
+.worktrees/
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
