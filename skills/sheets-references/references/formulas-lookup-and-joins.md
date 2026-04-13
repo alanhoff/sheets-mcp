@@ -18,7 +18,7 @@
 =XLOOKUP(A2, Ref!A:A, Ref!C:C, "missing")
 =INDEX(Ref!C:C, MATCH(A2, Ref!A:A, 0))
 =FILTER(Ref!C:C, Ref!A:A=A2)
-=XLOOKUP(A2, HSTACK(Ref!A:A, Ref!B:B), TAKE(HSTACK(Ref!C:C, Ref!D:D),,2), "missing")
+=XLOOKUP(A2&"♦"&B2, Ref!A:A&"♦"&Ref!B:B, HSTACK(Ref!C:C, Ref!D:D), "missing")
 =LET(keys, ARRAYFORMULA(TRIM(SUBSTITUTE(Orders!A2:A, CHAR(160), " "))), XLOOKUP(TRIM(SUBSTITUTE(A2, CHAR(160), " ")), keys, Orders!D2:D, "missing"))
 ```
 
