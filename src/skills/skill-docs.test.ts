@@ -107,4 +107,24 @@ describe("skill docs", () => {
 
     assert.match(supportDoc, /Load `references\/formulas-index\.md` first for formula-heavy requests\./);
   });
+
+  it("exposes formula doctrine from the main skills and README without adding a new top-level skill", () => {
+    const readSkill = readRepoText("skills/sheets-read/SKILL.md");
+    const diagnoseSkill = readRepoText("skills/sheets-diagnose/SKILL.md");
+    const readme = readRepoText("README.md");
+
+    assert.match(readSkill, /formulas-index\.md/);
+    assert.match(readSkill, /formulas-text-date-cleanup\.md/);
+
+    assert.match(diagnoseSkill, /formulas-index\.md/);
+    assert.match(diagnoseSkill, /formulas-lookup-and-joins\.md/);
+    assert.match(diagnoseSkill, /formulas-arrays-and-shaping\.md/);
+    assert.match(diagnoseSkill, /formulas-text-date-cleanup\.md/);
+    assert.match(diagnoseSkill, /formulas-pitfalls-and-anti-patterns\.md/);
+    assert.match(diagnoseSkill, /formula-debugging-playbooks\.md/);
+
+    assert.match(readme, /formula doctrine/i);
+    assert.match(readme, /`sheets-references`/);
+    assert.ok((readme.match(/\| `sheets-(read|diagnose|write)` \|/g) ?? []).length === 3);
+  });
 });

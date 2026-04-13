@@ -214,9 +214,9 @@ Use one of these three domain skills as the normal entrypoint:
 
 ### Support Skill
 
-- `sheets-references` — shared reference library for tool boundaries, request shaping, retries, mutation safety, and failure handling
+- `sheets-references` — shared reference library for tool boundaries, request shaping, retries, mutation safety, formula doctrine, and failure handling
 
-Start with a main skill for the user task. Load `sheets-references` only when you need deeper cross-cutting guidance.
+Start with a main skill for the user task. Load `sheets-references` only when you need deeper cross-cutting guidance, including formula doctrine for joins, spill shaping, cleanup, or anti-pattern review.
 
 ## Development
 

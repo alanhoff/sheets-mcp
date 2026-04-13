@@ -55,28 +55,33 @@ If the issue is ambiguous, start with the cheapest read-only evidence.
 - Check duplicates, nulls, and mixed types in the key columns before changing the formula.
 - Suspect whitespace or hidden-text differences when values “look the same” but do not match.
 - Remember that `XLOOKUP` requires lookup and result ranges with compatible shape and returns `#N/A` by default when no match is found.
+- Load `../sheets-references/references/formulas-lookup-and-joins.md` when the question is more about join design than immediate execution proof.
 
 ### `FILTER` Surprises
 
 - Verify that each condition range has the same length as the filtered range.
 - Do not mix row conditions and column conditions in one `FILTER`.
-- Treat `#N/A` carefully: it may mean “no rows matched,” not “the formula is malformed.”
+- Treat `#N/A` carefully: it may mean that no rows matched, not that the formula is malformed.
+- Load `../sheets-references/references/formulas-arrays-and-shaping.md` when spill or shaping behavior is central.
 
 ### `LET` Failures
 
 - Ensure the declared names are identifiers, not cell references.
 - Evaluate names left to right; later expressions cannot use names declared later in the same `LET`.
+- Load `../sheets-references/references/formulas-text-date-cleanup.md` when the problem is cleanup, coercion, or formula readability.
 
 ### `IMPORTRANGE` Problems
 
 - Distinguish permission failures from formula syntax failures.
 - Large imports, chained imports, volatile upstream references, and freshness delays can all look like formula bugs.
 - Debug permission and range size before rewriting the formula.
+- Load `../sheets-references/references/formulas-pitfalls-and-anti-patterns.md` when import chains or volatile dependencies are suspected.
 
 ### Array Behavior
 
 - Many array-returning formulas expand into neighboring cells automatically.
 - Use a scratch target cell with clear space below it when debugging array-producing formulas.
+- Load `../sheets-references/references/formulas-arrays-and-shaping.md` when selecting between spill patterns.
 
 ## Cross-Cutting Rules
 
@@ -88,9 +93,14 @@ If the issue is ambiguous, start with the cheapest read-only evidence.
 - When comparing candidate formulas, batch them into one debug run instead of repeating one-by-one calls.
 - Normalize key and range assumptions before blaming the formula.
 - Load deeper doctrine only when needed:
+  - `../sheets-references/references/formulas-index.md`
+  - `../sheets-references/references/formulas-lookup-and-joins.md`
+  - `../sheets-references/references/formulas-arrays-and-shaping.md`
+  - `../sheets-references/references/formulas-text-date-cleanup.md`
+  - `../sheets-references/references/formulas-pitfalls-and-anti-patterns.md`
+  - `../sheets-references/references/formula-debugging-playbooks.md`
   - `../sheets-references/references/tool-catalog.md`
   - `../sheets-references/references/request-shaping.md`
-  - `../sheets-references/references/formula-debugging-playbooks.md`
   - `../sheets-references/references/performance-and-scale.md`
   - `../sheets-references/references/error-taxonomy.md`
 

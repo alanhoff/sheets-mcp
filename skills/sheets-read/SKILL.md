@@ -51,19 +51,7 @@ Use `sheets_read_values` with `value_render_option=UNFORMATTED_VALUE` when downs
 
 ### Formula Inventory
 
-Use `sheets_read_values` with `value_render_option=FORMULA` when the user wants to know which formulas are present but does not need full `CellData`.
-
-### Grid Audit
-
-Use `sheets_read_grid` when the question depends on notes, merges, row/column metadata, `userEnteredFormat`, or `effectiveFormat`.
-
-## Decision Rules
-
-1. Start with `sheets_get` when the user only needs structure or when the range is not yet known.
-2. Use `sheets_read_values` when the user needs value matrices or formula text.
-3. Use `sheets_read_grid` only when the user explicitly needs grid-level structures.
-4. Never use a heavier tool when a lighter tool fully covers the request.
-5. For large spreadsheets, discover first, then read only targeted A1 ranges.
+Use `sheets_read_values` with `value_render_option=FORMULA` when the user wants to know which formulas are present but does not need full `CellData`. Load `../sheets-references/references/formulas-index.md` when the next step is picking or critiquing a formula family rather than only listing formulas.
 
 ## Cross-Cutting Rules
 
@@ -79,6 +67,8 @@ Use `sheets_read_grid` when the question depends on notes, merges, row/column me
   - `../sheets-references/references/request-shaping.md`
   - `../sheets-references/references/performance-and-scale.md`
   - `../sheets-references/references/formatting-and-visualization.md`
+  - `../sheets-references/references/formulas-index.md`
+  - `../sheets-references/references/formulas-text-date-cleanup.md`
 
 ## `sheets_get`
 
