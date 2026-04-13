@@ -87,7 +87,9 @@ describe("skill docs", () => {
 
     const indexDoc = readRepoText("skills/sheets-references/references/formulas-index.md");
     for (const relPath of FORMULA_DOCS.slice(1)) {
-      assert.match(indexDoc, new RegExp(relPath.split("/").at(-1)!.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")));
+      const fileName = relPath.split("/").at(-1);
+      assert.ok(fileName, `missing file name for ${relPath}`);
+      assert.match(indexDoc, new RegExp(fileName.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")));
     }
   });
 });
