@@ -92,4 +92,19 @@ describe("skill docs", () => {
       assert.match(indexDoc, new RegExp(fileName.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")));
     }
   });
+
+  it("indexes formula doctrine from sheets-references", () => {
+    const supportDoc = readRepoText("skills/sheets-references/SKILL.md");
+
+    assert.match(supportDoc, /formula doctrine/i);
+    assert.match(supportDoc, /formulas-index\.md/);
+
+    for (const relPath of FORMULA_DOCS.slice(1)) {
+      const fileName = relPath.split("/").at(-1);
+      assert.ok(fileName, `missing file name for ${relPath}`);
+      assert.match(supportDoc, new RegExp(fileName.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")));
+    }
+
+    assert.match(supportDoc, /Load `references\/formulas-index\.md` first for formula-heavy requests\./);
+  });
 });
