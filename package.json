@@ -1,0 +1,36 @@
+{
+  "name": "sheets-mcp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "biome check && node node_modules/typescript/bin/tsc --noEmit && node --experimental-transform-types --no-warnings --test --experimental-test-coverage --test-coverage-lines=80 --test-coverage-branches=80 --test-coverage-functions=80 --test-coverage-exclude=src/index.ts --test-coverage-exclude=src/auth.ts --test-coverage-exclude=src/google.ts --test-coverage-exclude=src/services/google-client.ts",
+    "fix": "biome check --unsafe --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@googleapis/sheets": "^13.0.1",
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "lodash": "^4.17.23",
+    "micro-memoize": "^5.1.1",
+    "ts-blank-space": "^0.8.0",
+    "zod": "^4.3.6"
+  },
+  "bin": "./start",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "imports": {
+    "#*": "./src/*"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.4",
+    "@tsconfig/node24": "^24.0.4",
+    "@types/lodash": "^4.17.24",
+    "@types/node": "^25.3.0",
+    "typescript": "^5.9.3"
+  }
+}

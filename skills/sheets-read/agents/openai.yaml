@@ -1,0 +1,3 @@
+interface:
+  display_name: "Sheets Read"
+  short_description: "Inspect spreadsheet metadata, values, formulas, notes, and grid structures"

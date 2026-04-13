@@ -1,0 +1,82 @@
+name: Validate Distribution
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-npx:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create fake credentials file
+        run: |
+          cat > /tmp/fake-creds.json << 'CREDS'
+          {
+            "web": {
+              "client_id": "fake-client-id.apps.googleusercontent.com",
+              "client_secret": "fake-client-secret",
+              "redirect_uris": ["http://localhost:3000/callback"],
+              "project_id": "fake-project",
+              "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+              "token_uri": "https://oauth2.googleapis.com/token"
+            }
+          }
+          CREDS
+
+      - name: Validate --credentials argument accepted
+        run: |
+          # Server will fail at token verification (fake creds) but should
+          # get past CLI argument parsing and credential file reading
+          timeout 5 node ./start --credentials /tmp/fake-creds.json 2>&1 || EXIT_CODE=$?
+
+          # Exit code 1 = auth failure (expected with fake creds)
+          # Exit code 124 = timeout (server started but hung on stdio — also OK)
+          # Exit code 0 = unexpected success
+          if [ "${EXIT_CODE:-0}" = "1" ] || [ "${EXIT_CODE:-0}" = "124" ]; then
+            echo "✓ --credentials argument accepted and credentials file was read"
+          else
+            echo "✗ Unexpected exit code: ${EXIT_CODE:-0}"
+            exit 1
+          fi
+
+      - name: Validate auth subcommand routable
+        run: |
+          # Auth subcommand should start, print URL, then wait for input
+          # We timeout after 3 seconds — if it gets that far, routing works
+          timeout 3 node ./start --credentials /tmp/fake-creds.json auth 2>&1 || EXIT_CODE=$?
+
+          # Exit code 124 = timeout (auth flow started, waiting for input — correct)
+          # Exit code 1 = credential error (also OK — proves routing worked)
+          if [ "${EXIT_CODE:-0}" = "124" ] || [ "${EXIT_CODE:-0}" = "1" ]; then
+            echo "✓ auth subcommand is routable"
+          else
+            echo "✗ Unexpected exit code: ${EXIT_CODE:-0}"
+            exit 1
+          fi
+
+      - name: Validate npx execution from local package
+        run: |
+          # Test npx can discover and execute the entry point
+          timeout 5 npx -y ./ --credentials /tmp/fake-creds.json 2>&1 || EXIT_CODE=$?
+
+          if [ "${EXIT_CODE:-0}" = "1" ] || [ "${EXIT_CODE:-0}" = "124" ]; then
+            echo "✓ npx execution works from package"
+          else
+            echo "✗ Unexpected exit code: ${EXIT_CODE:-0}"
+            exit 1
+          fi

@@ -1,0 +1,28 @@
+# Development and CI metadata
+.github/
+.vscode/
+.gitignore
+.nvmrc
+
+# Local dependencies, build output, and caches
+node_modules/
+coverage/
+dist/
+*.tgz
+*.tsbuildinfo
+
+# Tooling config only needed for local development
+biome.json
+tsconfig*.json
+package-lock.json
+
+# Test sources
+test/
+tests/
+src/**/*.test.ts
+src/**/*.spec.ts
+
+# Local secrets and environment files
+.env
+.env.*
+key.json

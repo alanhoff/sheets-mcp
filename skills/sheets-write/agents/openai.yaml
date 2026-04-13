@@ -1,0 +1,3 @@
+interface:
+  display_name: "Sheets Write"
+  short_description: "Safely change spreadsheet data, structure, charts, and formatting"

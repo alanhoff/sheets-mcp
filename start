@@ -1,0 +1,14 @@
+#!/usr/bin/env -S node --no-warnings
+
+import "ts-blank-space/register";
+
+const originalCwd = process.cwd();
+process.chdir(import.meta.dirname);
+
+const { parseCliArgs } = await import("./src/cli.ts");
+const cliArgs = parseCliArgs(process.argv, originalCwd);
+
+globalThis.__credentialsPath = cliArgs.credentialsPath;
+
+const entry = cliArgs.subcommand === "auth" ? "./src/auth.ts" : "./src/index.ts";
+await import(entry);

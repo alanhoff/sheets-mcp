@@ -1,0 +1,5 @@
+interface:
+  display_name: "Sheets References"
+  short_description: "Reference docs for the Sheets skills"
+policy:
+  allow_implicit_invocation: false

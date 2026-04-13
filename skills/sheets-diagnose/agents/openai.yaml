@@ -1,0 +1,3 @@
+interface:
+  display_name: "Sheets Diagnose"
+  short_description: "Profile spreadsheet data and debug Google Sheets formulas"
