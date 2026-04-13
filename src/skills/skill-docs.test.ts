@@ -18,6 +18,24 @@ const EXPECTED_SKILLS = [
   "skills/sheets-write",
 ] as const;
 
+const FORMULA_DOCS = [
+  "skills/sheets-references/references/formulas-index.md",
+  "skills/sheets-references/references/formulas-lookup-and-joins.md",
+  "skills/sheets-references/references/formulas-arrays-and-shaping.md",
+  "skills/sheets-references/references/formulas-text-date-cleanup.md",
+  "skills/sheets-references/references/formulas-pitfalls-and-anti-patterns.md",
+] as const;
+
+const REQUIRED_FORMULA_HEADINGS = [
+  "## Use When",
+  "## Avoid When",
+  "## High-Yield Formulas Or Patterns",
+  "## Tips And Tricks",
+  "## Common Pitfalls",
+  "## Debugging Clues",
+  "## Escalation Path",
+] as const;
+
 describe("skill docs", () => {
   it("ships exactly the expected top-level skill directories", () => {
     assert.deepEqual(listSkillDirs(), [...EXPECTED_SKILLS]);
@@ -54,6 +72,22 @@ describe("skill docs", () => {
         const absolutePath = resolveRelativeDocRef(skillDir, relRef);
         assert.ok(existsSync(absolutePath), `${skillDir} references missing file ${relRef}`);
       }
+    }
+  });
+
+  it("ships the formula doctrine bundle with stable section headings", () => {
+    for (const relPath of FORMULA_DOCS) {
+      const markdown = readRepoText(relPath);
+      assert.match(markdown, /^# .+$/m, `${relPath} needs an H1`);
+
+      for (const heading of REQUIRED_FORMULA_HEADINGS) {
+        assert.match(markdown, new RegExp(`^${heading.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")}$`, "m"));
+      }
+    }
+
+    const indexDoc = readRepoText("skills/sheets-references/references/formulas-index.md");
+    for (const relPath of FORMULA_DOCS.slice(1)) {
+      assert.match(indexDoc, new RegExp(relPath.split("/").at(-1)!.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")));
     }
   });
 });
