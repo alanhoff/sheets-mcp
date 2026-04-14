@@ -21,6 +21,18 @@ function getDefaultCredentialsPath(): string {
   }
 }
 
+function expandHomeDirectory(path: string): string {
+  if (path === "~") {
+    return homedir();
+  }
+
+  if (path.startsWith("~/") || path.startsWith("~\\")) {
+    return join(homedir(), path.slice(2));
+  }
+
+  return path;
+}
+
 export function parseCliArgs(argv: string[] = process.argv, cwd: string = process.cwd()): CliArgs {
   const args = argv.slice(2);
   let credentialsPath: string | null = null;
@@ -60,7 +72,7 @@ export function parseCliArgs(argv: string[] = process.argv, cwd: string = proces
     }
   }
 
-  let resolvedPath = credentialsPath ?? getDefaultCredentialsPath();
+  let resolvedPath = expandHomeDirectory(credentialsPath ?? getDefaultCredentialsPath());
 
   // Resolve relative paths against the caller's CWD, not package dir
   if (!isAbsolute(resolvedPath)) {

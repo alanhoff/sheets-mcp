@@ -13,8 +13,8 @@
   "type": "module",
   "dependencies": {
     "@googleapis/sheets": "^13.0.1",
-    "@modelcontextprotocol/sdk": "^1.27.1",
-    "lodash": "^4.17.23",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "lodash": "^4.18.1",
     "micro-memoize": "^5.1.1",
     "ts-blank-space": "^0.8.0",
     "zod": "^4.3.6"
@@ -27,10 +27,10 @@
     "#*": "./src/*"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.4",
+    "@biomejs/biome": "^2.4.11",
     "@tsconfig/node24": "^24.0.4",
     "@types/lodash": "^4.17.24",
-    "@types/node": "^25.3.0",
-    "typescript": "^5.9.3"
+    "@types/node": "^25.6.0",
+    "typescript": "^6.0.2"
   }
 }

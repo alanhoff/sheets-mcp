@@ -6,16 +6,21 @@ import { afterEach, beforeEach, describe, it } from "node:test";
 import { parseCliArgs } from "#cli.ts";
 
 const TMP_DIR = join(import.meta.dirname, "..", ".test-tmp-cli");
+const HOME_TMP_DIR = join(homedir(), ".test-tmp-cli-home");
 const FAKE_CREDS = join(TMP_DIR, "fake-key.json");
+const HOME_FAKE_CREDS = join(HOME_TMP_DIR, "fake-key.json");
 
 describe("parseCliArgs", () => {
   beforeEach(() => {
     mkdirSync(TMP_DIR, { recursive: true });
+    mkdirSync(HOME_TMP_DIR, { recursive: true });
     writeFileSync(FAKE_CREDS, JSON.stringify({ web: { client_id: "test" } }));
+    writeFileSync(HOME_FAKE_CREDS, JSON.stringify({ web: { client_id: "test" } }));
   });
 
   afterEach(() => {
     rmSync(TMP_DIR, { recursive: true, force: true });
+    rmSync(HOME_TMP_DIR, { recursive: true, force: true });
   });
 
   it("parses --credentials flag and uses provided path", () => {
@@ -205,6 +210,11 @@ describe("parseCliArgs", () => {
   it("does not alter absolute credentials path", () => {
     const result = parseCliArgs(["node", "start", "--credentials", FAKE_CREDS], "/some/other/dir");
     assert.equal(result.credentialsPath, FAKE_CREDS);
+  });
+
+  it("expands tilde-prefixed credentials path against the home directory", () => {
+    const result = parseCliArgs(["node", "start", "--credentials", "~/.test-tmp-cli-home/fake-key.json"]);
+    assert.equal(result.credentialsPath, HOME_FAKE_CREDS);
   });
 
   it("exits with error for unknown flags", () => {
